@@ -40,6 +40,8 @@
                 </h1>
             </div>
 
+			<div id="progressbar" style="display:normal;"><img src="css/loader.gif"/></div>
+
 
             <div id="icon">
 
@@ -1066,6 +1068,9 @@
                           console.log(name, prgr_fk);
 
                       }*/
+                      
+                      
+                      
                 },
 
                 //--------------------------------------------------Webservice wird aufgerufen und daten werden lokal abgespeichert------------------------------------------------------------------------------------------------------------
@@ -1084,7 +1089,12 @@
                         error: function (xhr, ajaxOptions, thrownError) { console.log(xhr.status); console.log(thrownError); console.log(xhr.responseText) },
                         success: function (result) {
                             datahandler.data = result.data;
-
+                            
+                            
+                            document.getElementById("progressbar").style.display="none";
+                            document.getElementById("icon").style.display="";
+                            
+                            
                             // Daten als feld in localStorage speichern!
                             var feld = [];
                             localStorage["feld"] = JSON.stringify(datahandler.data);
@@ -1324,7 +1334,7 @@
                                         divaa.onclick = makeShowItemEventListener(gr, sg_fk, pk, argr_fk);
 
 
-                                        //datahandler.artgrsuchen(Suche,x);
+                                        datahandler.artgrsuchen(Suche,x);
 
 
                                     } else {
@@ -1357,7 +1367,7 @@
 
                                 var x = zahler;
                                // console.log(x);
-                                datahandler.artgrsuchen(Suche, x);
+                                //datahandler.artgrsuchen(Suche, x);
 
                             }
                         }
@@ -1380,7 +1390,7 @@
 
 
                     var diva = document.createElement('div');
-                    diva.innerHTML = '<span style="color: #1a4064;">Artikelgruppen</span>';
+                    diva.innerHTML = '<span style="color: #1a4064;">Artikel</span>';
                     $('#artgr').append(diva);
 
                     for (var index = 0; index < datahandler.data.length; index++) {
@@ -1455,12 +1465,9 @@
                                 } else {
 
 
-
                                 }
 
-
                             }
-
 
                         }
 
@@ -1472,7 +1479,6 @@
                     var div = document.createElement('div');
                     div.innerHTML = '<div><span style="color: #1a4064;"><b>Es wurden ' + x + ' Ergebnisse gefunden!</b></span></div>';
                     $('#zahler').append(div);
-
 
                 },
                 //----------------------------------------------------------------------- Artiklen durchsuchen--------------------------------------------------------------
@@ -1600,6 +1606,8 @@
 
 function checkInternet(){
 
+			document.getElementById("icon").style.display="none";
+
             var inet = navigator.online;
             console.log(inet);
 
@@ -1608,7 +1616,7 @@ function checkInternet(){
 
                 console.log('offline');
                 $(document).ready(function () {
-
+			
                    datahandler.localStorage_ausgeben();
 
                });
@@ -1618,7 +1626,7 @@ function checkInternet(){
                 console.log('online');
                 $(document).ready(function () {
                    datahandler.loaddata();
-
+  					
 
                 });
 
