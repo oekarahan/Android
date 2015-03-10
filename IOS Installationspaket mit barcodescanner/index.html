@@ -163,7 +163,7 @@
                             </li>
                             
                             
-                            <li id="scan">
+                            <li id="scansub">
                                 <div id="divscanner">
                                     <a href="#Barcodescanner">
                                         <img src="css/scanner.png" />
@@ -218,7 +218,7 @@
                             
                             
                             
-                            <li id="scan">
+                            <li id="scanpro">
                                 <div id="divscanner">
                                     <a href="scanner.html">
                                         <img src="css/scanner.png" />
@@ -273,7 +273,7 @@
                                 
                             </li>
                             
-                            <li id="scan">
+                            <li id="scanartikelgruppen">
                                 <div id="divscanner">
                                     <a href="scanner.html">
                                         <img src="css/scanner.png" />
@@ -342,7 +342,7 @@
                             </li>
                             
                             
-                            <li id="scan">
+                            <li id="scanartgrp">
                                 <div id="divscanner">
                                     <a href="scanner.html">
                                         <img src="css/scanner.png" />
@@ -408,7 +408,7 @@
                             
                             
                             
-                            <li id="scan">
+                            <li id="scanmedia">
                                 <div id="divscanner">
                                     <a href="scanner.html">
                                         <img src="css/scanner.png" />
@@ -431,13 +431,14 @@
                 
                 
                 
-                <div id="media">
-                    <br /><br /><br />
-                    <span id="sapnr" style="font-size:1.5em; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color: #1a4064;">SAP Nr.:</span><span id="saplink" style="font-size:1.5em; margin-left:15%; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #1a4064;">Link:</span>
-                    <b><hr style="color:#83d0e3; margin-left:5%; margin-right:5%;" /></b>
-                    <div id="divmediacenter"></div>
+                <div id="media" >
                     
-                    <br />
+                    
+                    <span id="sapnr" style="font-size:1em; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color: #1a4064;">SAP Nr.:</span><span id="saplink" style="font-size:1em; margin-left:15%; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #1a4064;">Link:</span>
+                    <b><hr style="color:#83d0e3; margin-left:5%; margin-right:5%;" /></b>
+                    
+                    <div id="divmediacenter"></div>
+                
                     
                     
                     <div id="prgrlinks"></div>
@@ -482,7 +483,7 @@
                             
                             
                             
-                            <li id="scan">
+                            <li id="scansuche">
                                 <div id="divscanner">
                                     <a href="scanner.html">
                                         <img src="css/scanner.png" />
@@ -552,7 +553,7 @@
                             
                             
                             
-                            <li id="scan">
+                            <li id="scanaurtikelsuche">
                                 <div id="divscanner">
                                     <a href="scanner.html">
                                         <img src="css/scanner.png" />
@@ -1616,14 +1617,16 @@
                 
                 EanSuchen: function(EAN){
                     
+                    
                     console.log(EAN);
                     
                     var result=EAN;
                     
                     console.log(EAN);
                     console.log('bin drinnen');
+                  
                     
-                    $('#EAN').html('');
+                
                     
                     for(var index=0; index < datahandler.data.length; index++){
                         var sublange = datahandler.data[index].subGroups.length;
@@ -1810,42 +1813,251 @@
                                                                                                                                                
                                                                                                                                                
                                                                                                                                                
-                                                                                                                                               /***************************scanner***********/
+                                /***************************scanner***********/
                                                                                                                                                
-                                                                                                                                               
-                                                                                                                                               $('#scan').click(function(){
+                              $('#scan').click(function(){
                                                                                                                                                                 
-                                                                                                                                                                
-                                                                                                                                                                console.log('scanning');
-                                                                                                                                                                
-                                                                                                                                                                var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
-                                                                                                                                                                
-                                                                                                                                                                scanner.scan( function (result) { 
+                                               console.log('scanning');
+                                               var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
+                                               scanner.scan( function (result) {
+                                            console.log(result.text);
+                                            var EAN = result.text;
+                              
+                                                            if(EAN === ""){
+                                                                console.log("abgebrochen");
                                                                                                                                                                              
-                                                                                                                                                                             console.log(result.text);
+                                                            }else{
+                                                            datahandler.EanSuchen(EAN);
                                                                                                                                                                              
-                                                                                                                                                                             var EAN = result.text;				
-                                                                                                                                                                             
-                                                                                                                                                                             
-                                                                                                                                                                             datahandler.EanSuchen(EAN);
-                                                                                                                                                                             
-                                                                                                                                                                             /*
-                                                                                                                                                                              alert("We got a barcode\n" + 
-                                                                                                                                                                              "Result: " + result.text + "\n" + 
-                                                                                                                                                                              "Format: " + result.format + "\n" + 
-                                                                                                                                                                              "Cancelled: " + result.cancelled);  
+                          /*
+                          alert("We got a barcode\n" +
+                          "Result: " + result.text + "\n" +
+                          "Format: " + result.format + "\n" +
+                          "Cancelled: " + result.cancelled);
                                                                                                                                                                               
-                                                                                                                                                                              console.log("Scanner result: \n" +
-                                                                                                                                                                              "text: " + result.text + "\n" +
-                                                                                                                                                                              "format: " + result.format + "\n" +
-                                                                                                                                                                              "cancelled: " + result.cancelled + "\n");
-                                                                                                                                                                              document.getElementById("info").innerHTML = result.text;
-                                                                                                                                                                              console.log(result);
+                          console.log("Scanner result: \n" +
+                          "text: " + result.text + "\n" +
+                          "format: " + result.format + "\n" +
+                         "cancelled: " + result.cancelled + "\n");
+                          document.getElementById("info").innerHTML = result.text;
+                          console.log(result);
                                                                                                                                                                               
-                                                                                                                                                                              */
-                                                                                                                                                                             })  
-                                                                                                                                                                });
-                                                                                                                                                                
+                          */}
+                            })
+                          });
+                          $('#scansub').click(function(){
+                                           
+                                           console.log('scanning');
+                                           var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
+                                           scanner.scan( function (result) {
+                                                        console.log(result.text);
+                                                        var EAN = result.text;
+                                                        
+                                                        if(EAN === ""){
+                                                        console.log("abgebrochen");
+                                                        
+                                                        }else{
+                                                        datahandler.EanSuchen(EAN);
+                                                        
+                                                        /*
+                                                         alert("We got a barcode\n" +
+                                                         "Result: " + result.text + "\n" +
+                                                         "Format: " + result.format + "\n" +
+                                                         "Cancelled: " + result.cancelled);
+                                                         
+                                                         console.log("Scanner result: \n" +
+                                                         "text: " + result.text + "\n" +
+                                                         "format: " + result.format + "\n" +
+                                                         "cancelled: " + result.cancelled + "\n");
+                                                         document.getElementById("info").innerHTML = result.text;
+                                                         console.log(result);
+                                                         
+                                                         */}
+                                                        })
+                                           });
+                                           $('#scanpro').click(function(){
+                                                                 
+                                                                 console.log('scanning');
+                                                                 var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
+                                                                 scanner.scan( function (result) {
+                                                                              console.log(result.text);
+                                                                              var EAN = result.text;
+                                                                              
+                                                                              if(EAN === ""){
+                                                                              console.log("abgebrochen");
+                                                                              
+                                                                              }else{
+                                                                              datahandler.EanSuchen(EAN);
+                                                                              
+                                                                              /*
+                                                                               alert("We got a barcode\n" +
+                                                                               "Result: " + result.text + "\n" +
+                                                                               "Format: " + result.format + "\n" +
+                                                                               "Cancelled: " + result.cancelled);
+                                                                               
+                                                                               console.log("Scanner result: \n" +
+                                                                               "text: " + result.text + "\n" +
+                                                                               "format: " + result.format + "\n" +
+                                                                               "cancelled: " + result.cancelled + "\n");
+                                                                               document.getElementById("info").innerHTML = result.text;
+                                                                               console.log(result);
+                                                                               
+                                                                               */}
+                                                                              })
+                                                                 });
+
+                                                $('#scanartikelgruppen').click(function(){
+                                                                             
+                                                                             console.log('scanning');
+                                                                             var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
+                                                                             scanner.scan( function (result) {
+                                                                                          console.log(result.text);
+                                                                                          var EAN = result.text;
+                                                                                          
+                                                                                          if(EAN === ""){
+                                                                                          console.log("abgebrochen");
+                                                                                          
+                                                                                          }else{
+                                                                                          datahandler.EanSuchen(EAN);
+                                                                                          
+                                                                                          /*
+                                                                                           alert("We got a barcode\n" +
+                                                                                           "Result: " + result.text + "\n" +
+                                                                                           "Format: " + result.format + "\n" +
+                                                                                           "Cancelled: " + result.cancelled);
+                                                                                           
+                                                                                           console.log("Scanner result: \n" +
+                                                                                           "text: " + result.text + "\n" +
+                                                                                           "format: " + result.format + "\n" +
+                                                                                           "cancelled: " + result.cancelled + "\n");
+                                                                                           document.getElementById("info").innerHTML = result.text;
+                                                                                           console.log(result);
+                                                                                           
+                                                                                           */}
+                                                                                          })
+                                                                             });
+                                                                             $('#scanartgrp').click(function(){
+                                                                                                            
+                                                                                                            console.log('scanning');
+                                                                                                            var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
+                                                                                                            scanner.scan( function (result) {
+                                                                                                                         console.log(result.text);
+                                                                                                                         var EAN = result.text;
+                                                                                                                         
+                                                                                                                         if(EAN === ""){
+                                                                                                                         console.log("abgebrochen");
+                                                                                                                         
+                                                                                                                         }else{
+                                                                                                                         datahandler.EanSuchen(EAN);
+                                                                                                                         
+                                                                                                                         /*
+                                                                                                                          alert("We got a barcode\n" +
+                                                                                                                          "Result: " + result.text + "\n" +
+                                                                                                                          "Format: " + result.format + "\n" +
+                                                                                                                          "Cancelled: " + result.cancelled);
+                                                                                                                          
+                                                                                                                          console.log("Scanner result: \n" +
+                                                                                                                          "text: " + result.text + "\n" +
+                                                                                                                          "format: " + result.format + "\n" +
+                                                                                                                          "cancelled: " + result.cancelled + "\n");
+                                                                                                                          document.getElementById("info").innerHTML = result.text;
+                                                                                                                          console.log(result);
+                                                                                                                          
+                                                                                                                          */}
+                                                                                                                         })
+                                                                                                            });
+                                                                                                            $('#scanmedia').click(function(){
+                                                                                                                                           
+                                                                                                                                           console.log('scanning');
+                                                                                                                                           var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
+                                                                                                                                           scanner.scan( function (result) {
+                                                                                                                                                        console.log(result.text);
+                                                                                                                                                        var EAN = result.text;
+                                                                                                                                                        
+                                                                                                                                                        if(EAN === ""){
+                                                                                                                                                        console.log("abgebrochen");
+                                                                                                                                                        
+                                                                                                                                                        }else{
+                                                                                                                                                        datahandler.EanSuchen(EAN);
+                                                                                                                                                        
+                                                                                                                                                        /*
+                                                                                                                                                         alert("We got a barcode\n" +
+                                                                                                                                                         "Result: " + result.text + "\n" +
+                                                                                                                                                         "Format: " + result.format + "\n" +
+                                                                                                                                                         "Cancelled: " + result.cancelled);
+                                                                                                                                                         
+                                                                                                                                                         console.log("Scanner result: \n" +
+                                                                                                                                                         "text: " + result.text + "\n" +
+                                                                                                                                                         "format: " + result.format + "\n" +
+                                                                                                                                                         "cancelled: " + result.cancelled + "\n");
+                                                                                                                                                         document.getElementById("info").innerHTML = result.text;
+                                                                                                                                                         console.log(result);
+                                                                                                                                                         
+                                                                                                                                                         */}
+                                                                                                                                                        })
+                                                                                                                                           });
+                                                                                                                                           $('#scansuche').click(function(){
+                                                                                                                                                                          
+                                                                                                                                                                          console.log('scanning');
+                                                                                                                                                                          var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
+                                                                                                                                                                          scanner.scan( function (result) {
+                                                                                                                                                                                       console.log(result.text);
+                                                                                                                                                                                       var EAN = result.text;
+                                                                                                                                                                                       
+                                                                                                                                                                                       if(EAN === ""){
+                                                                                                                                                                                       console.log("abgebrochen");
+                                                                                                                                                                                       
+                                                                                                                                                                                       }else{
+                                                                                                                                                                                       datahandler.EanSuchen(EAN);
+                                                                                                                                                                                       
+                                                                                                                                                                                       /*
+                                                                                                                                                                                        alert("We got a barcode\n" +
+                                                                                                                                                                                        "Result: " + result.text + "\n" +
+                                                                                                                                                                                        "Format: " + result.format + "\n" +
+                                                                                                                                                                                        "Cancelled: " + result.cancelled);
+                                                                                                                                                                                        
+                                                                                                                                                                                        console.log("Scanner result: \n" +
+                                                                                                                                                                                        "text: " + result.text + "\n" +
+                                                                                                                                                                                        "format: " + result.format + "\n" +
+                                                                                                                                                                                        "cancelled: " + result.cancelled + "\n");
+                                                                                                                                                                                        document.getElementById("info").innerHTML = result.text;
+                                                                                                                                                                                        console.log(result);
+                                                                                                                                                                                        
+                                                                                                                                                                                        */}
+                                                                                                                                                                                       })
+                                                                                                                                                                          });
+                                                                                                                                                                          $('#scanartikelsuche').click(function(){
+                                                                                                                                                                                                         
+                                                                                                                                                                                                         console.log('scanning');
+                                                                                                                                                                                                         var scanner = window.cordova.require("cordova/plugin/BarcodeScanner");
+                                                                                                                                                                                                         scanner.scan( function (result) {
+                                                                                                                                                                                                                      console.log(result.text);
+                                                                                                                                                                                                                      var EAN = result.text;
+                                                                                                                                                                                                                      
+                                                                                                                                                                                                                      if(EAN === ""){
+                                                                                                                                                                                                                      console.log("abgebrochen");
+                                                                                                                                                                                                                      
+                                                                                                                                                                                                                      }else{
+                                                                                                                                                                                                                      datahandler.EanSuchen(EAN);
+                                                                                                                                                                                                                      
+                                                                                                                                                                                                                      /*
+                                                                                                                                                                                                                       alert("We got a barcode\n" +
+                                                                                                                                                                                                                       "Result: " + result.text + "\n" +
+                                                                                                                                                                                                                       "Format: " + result.format + "\n" +
+                                                                                                                                                                                                                       "Cancelled: " + result.cancelled);
+                                                                                                                                                                                                                       
+                                                                                                                                                                                                                       console.log("Scanner result: \n" +
+                                                                                                                                                                                                                       "text: " + result.text + "\n" +
+                                                                                                                                                                                                                       "format: " + result.format + "\n" +
+                                                                                                                                                                                                                       "cancelled: " + result.cancelled + "\n");
+                                                                                                                                                                                                                       document.getElementById("info").innerHTML = result.text;
+                                                                                                                                                                                                                       console.log(result);
+                                                                                                                                                                                                                       
+                                                                                                                                                                                                                       */}
+                                                                                                                                                                                                                      })
+                                                                                                                                                                                                         });
+                                           
+                                                                                                 
                                                                                                                                                                 
             </script>
         
