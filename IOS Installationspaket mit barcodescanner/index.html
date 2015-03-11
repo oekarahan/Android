@@ -27,7 +27,10 @@
         
         
         <script src="plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js"></script>
-        <script src="js/index.js"></script>
+        <script src="plugins/org.apache.cordova.network-information/www/Connection.js"></script>
+        <script src="plugins/org.apache.cordova.network-information/www/network.js"></script>
+        
+        <script src="spec/index.js"></script>
         
         <!------------------------------- Startseite------------------------------------------------------------->
         <div class="mainContent">
@@ -41,7 +44,7 @@
                 <div id="uber">
                     <h1 id="uberschrift">
                         WIR SIND DIE HELFER<br />
-                        DER HELFENDEN.
+                        DER HELFER.
                     </h1>
                 </div>
                 <div id="progressbar" style="display:normal;"><img src="css/loader.gif"/></div>
@@ -1060,9 +1063,13 @@
                 //----------------------------------------------------------lokale daten werden ausgegeben--------------------------------------------------------------------------------------------------------------
                 localStorage_ausgeben: function () {
                     
+                    
+                    document.getElementById("progressbar").style.display="none";
+                    document.getElementById("icon").style.display="";
+                    
                     console.log('ich bin im localStorage');
                     
-                    var alleDaten = JSON.parse(localStorage.getItem('feld'));
+                    var alleDaten = JSON.parse(window.localStorage.getItem('feld'));
                     
                     datahandler.data = alleDaten;
                     
@@ -1105,7 +1112,7 @@
                            
                            // Daten als feld in localStorage speichern!
                            var feld = [];
-                           window.localStorage["feld"] = JSON.stringify(datahandler.data);
+                            window.localStorage["feld"] = JSON.stringify(datahandler.data);
                            var alleDaten = JSON.parse(window.localStorage["feld"]);
                            
                            
@@ -1739,7 +1746,7 @@
                 
             }
         
-        //--------------------------------------------Internetverbidnung wird gepr¸ft-----------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------Internetverbindnung wird gepruft-----------------------------------------------------------------------------------------------------------------
         
         
         function checkInternet(){
@@ -1747,35 +1754,35 @@
             
             document.getElementById("icon").style.display="none";
             
-            var inet = navigator.online;
-            console.log(inet);
+    
+           
+           var inet = navigator.online
+          
             
-            if (inet == false) {
+            if (inet === false) {
                 
-                
-                console.log('offline');
+             console.log('offline');
                 $(document).ready(function () {
                                   datahandler.localStorage_ausgeben();
                                   
                                   });
                                   
             } else {
-                
+               
                 console.log('online');
-                
                 $(document).ready(function () {
                                   
                                   datahandler.loaddata();
                                   
-                                  
-                                  
+                        
                                   
                                   });
+                
                                   
-            }
+                }
             
         }
-        
+    
         
         
         
