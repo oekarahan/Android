@@ -1756,34 +1756,31 @@
             
     
            
-           var inet = navigator.online
+           var inet = navigator.network.Connection.type;
+           
+           alert(inet);
           
-            
-            if (inet === false) {
+         /*
+            if (inet === true) {
                 
-             console.log('offline');
-                $(document).ready(function () {
-                                  datahandler.localStorage_ausgeben();
+                    console.log('offline');
+                        $(document).ready(function () {
+                            datahandler.localStorage_ausgeben();
                                   
                                   });
+           
                                   
             } else {
-               
-                console.log('online');
+            
+                 alert('online');
                 $(document).ready(function () {
                                   
                                   datahandler.loaddata();
-                                  
-                        
-                                  
                                   });
-                
-                                  
-                }
             
-        }
+        }*/
     
-        
+          }
         
         
         //-----------------------------------------page Aufruf----------------------------------------------------------------------------------------------------------------------------
